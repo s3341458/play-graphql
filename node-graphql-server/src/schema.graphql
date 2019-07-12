@@ -1,8 +1,11 @@
 type Query {
   info: String!
-  feed: [Link!]!
-  # Fetch a single link by its `id`
-  # link(id: ID!): Link
+  feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
+}
+
+type Feed {
+  links: [Link!]!
+  count: Int!
 }
 
 type Mutation {
@@ -50,4 +53,13 @@ type Vote {
 type Subscription {
   newLink: Link
   newVote: Vote
+}
+
+enum LinkOrderByInput {
+  description_ASC
+  description_DESC
+  url_ASC
+  url_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
